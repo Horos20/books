@@ -71,6 +71,8 @@ function deleteTask(event) {
         if(confirm("Delete?")) {
             td_element = event.target.parentElement;
             td_element.parentElement.remove();
+            book = td_element.parentElement.firstChild.textContent;
+            deleteTaskFromLocalStorage(book);
         }
     }
 }
@@ -84,5 +86,19 @@ function addTaskToLocalStorage(massiiv) {
     }
     books.push(massiiv);
     localStorage.setItem("books", JSON.stringify(books))
-    console.log(books)
+}
+
+function deleteTaskFromLocalStorage(book) {
+    let books;
+    if (localStorage.getItem('books') === null) {
+        books = [];
+    } else {
+        books = JSON.parse(localStorage.getItem('books'))
+    }
+    books.forEach(function (booksElement, index) {
+        if(booksElement[0] === book) {
+            books.splice(index, 1);
+        }
+    });
+    localStorage.setItem("books", JSON.stringify(books))
 }
