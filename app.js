@@ -53,6 +53,10 @@ function addBook(event) {
     tr.appendChild(td4);
     td4.appendChild(alink);
 
+    // Save book
+    massiiv = [title, author, isbn];
+    addTaskToLocalStorage(massiiv);
+
     // Clear input value
     titleInput.value = "";
     authorInput.value = "";
@@ -69,4 +73,16 @@ function deleteTask(event) {
             td_element.parentElement.remove();
         }
     }
+}
+
+function addTaskToLocalStorage(massiiv) {
+    let books;
+    if (localStorage.getItem('books') === null) {
+        books = [];
+    } else {
+        books = JSON.parse(localStorage.getItem('books'))
+    }
+    books.push(massiiv);
+    localStorage.setItem("books", JSON.stringify(books))
+    console.log(books)
 }
