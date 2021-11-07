@@ -5,6 +5,9 @@ const isbnInput = document.querySelector("#isbn");
 const form = document.querySelector("form");
 form.addEventListener("submit", addBook);
 
+const bookTable = document.querySelector('.rida');
+bookTable.addEventListener("click", deleteTask);
+
 function addBook(event) {
 
     // Title input value
@@ -19,6 +22,7 @@ function addBook(event) {
     // Create and append tr element
     const tr = document.createElement("tr");
     tbody.appendChild(tr);
+    tr.className = 'rida';
 
     // Make first td element (title)
     const td1 = document.createElement("td");
@@ -56,4 +60,13 @@ function addBook(event) {
 
     // Form submit event control
     event.preventDefault();
+}
+
+function deleteTask(event) {
+    if(event.target.textContent === "x") {
+        if(confirm("Delete?")) {
+            td_element = event.target.parentElement;
+            td_element.parentElement.remove();
+        }
+    }
 }
